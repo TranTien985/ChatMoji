@@ -1,0 +1,29 @@
+import express from "express";
+import dotenv from "dotenv";
+import { connectDB } from "./libs/db.js";
+import authRoute from "./routes/auth.route.js";
+import userRoute from "./routes/user.route.js";
+import cookieParser from "cookie-parser";
+import { protectedRoute } from "./middlewares/auth.middlewares.js";
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT;
+
+// middlewares
+app.use(express.json());
+app.use(cookieParser());
+
+//public routes
+app.use("/api/auth", authRoute);
+
+//private routes
+app.use(protectedRoute); // sử dụng middlewares để private thông tin
+app.use("/api/users", userRoute);
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`server bat dau tai cong ${PORT}`);
+  });
+});
