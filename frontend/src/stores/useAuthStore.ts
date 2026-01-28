@@ -33,9 +33,28 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   signIn: async (username, password) => {
     try {
-      
+      set({ loading: true });
+
+      const { accessToken } = await authService.signIn(username, password);
+      get().setAccessToken(accessToken);
+
+      toast.success("Chào mừng bạn quay lại với Moji 🎉");
     } catch (error) {
-      
+      console.error(error);
+      toast.error("Đăng nhập không thành công!");
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  signOut: async () => {
+    try {
+      get().clearState();
+      await authService.signOut();
+      toast.success('LogOut thành công!');
+    } catch (error) {
+      console.error(error);
+      toast.error("lỗi xảy ra khi logout, hãy thử lại");
     }
   }
 }));

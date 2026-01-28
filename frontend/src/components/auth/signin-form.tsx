@@ -6,6 +6,8 @@ import { Label } from "@radix-ui/react-label";
 import {z} from 'zod'
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useNavigate } from "react-router";
 
 // định nghĩa schema từng input
 const signInSchema = z.object({
@@ -19,6 +21,9 @@ export function SigninForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const {signIn}  = useAuthStore();
+  const navigate = useNavigate();
+
   // register: theo dõi giá trị của các ô input
   // handleSubmit: hàm chạy khi người dùng bấm đăng kí
   // errors: chứa lỗi 
@@ -28,7 +33,10 @@ export function SigninForm({
   }); // giúp xử lí mọi thứ của form
 
   const onSubmit = async(data: SigninFormValues) => {
-    // gọi backend để signup
+    const {username, password} = data;
+
+    await signIn(username, password);
+    navigate("/")
   }
 
 
