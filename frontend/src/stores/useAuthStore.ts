@@ -22,7 +22,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       //  gọi api
       await authService.signUp(username, password, email, firstName, lastName);
 
-      toast.success("Đăng ký thành công! Bạn sẽ được chuyển sang trang đăng nhập.");
+      toast.success(
+        "Đăng ký thành công! Bạn sẽ được chuyển sang trang đăng nhập.",
+      );
     } catch (error) {
       console.error(error);
       toast.error("Đăng ký không thành công");
@@ -38,6 +40,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const { accessToken } = await authService.signIn(username, password);
       get().setAccessToken(accessToken);
 
+      await get().fetchMe(); // sau khi đăng nhập xong app sẽ lấy thông tin người dùng và lưu vào store
+
       toast.success("Chào mừng bạn quay lại với Moji 🎉");
     } catch (error) {
       console.error(error);
@@ -51,10 +55,46 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     try {
       get().clearState();
       await authService.signOut();
-      toast.success('LogOut thành công!');
+      toast.success("LogOut thành công!");
     } catch (error) {
       console.error(error);
       toast.error("lỗi xảy ra khi logout, hãy thử lại");
+    } finally {
+      set({ loading: false });
     }
-  }
+  },
+
+  fetchMe: async () => {
+    try {
+      set({ loading: true });
+      const user = await authService.fetchMe();
+
+      set({ user });
+    } catch (error) {
+      console.error(error);
+      toast.error("lỗi xảy ra khi lấy giữ liệu người dùng hãy thử lại");
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  refresh: async () => {
+    try {
+      set({loading: true})
+      const { user, fetchMe, setAccessToken } = get();
+      const accessToken = await authService.refresh();
+
+      setAccessToken(accessToken);
+
+      if (!user) {
+        await fetchMe();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại");
+      get().clearState();
+    } finally {
+      set({loading: false})
+    }
+  },
 }));
