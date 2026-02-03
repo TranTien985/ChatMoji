@@ -29,6 +29,6 @@ const messageSchema = new mongoose.Schema(
 
 messageSchema.index({ converstationId: 1, createdAt: -1 }); // sắp xếp theo conver thứ tự tăng dần còn createdAt theo thứ tự giảm dần
 
-const Message = mongoose.model("Message", messageSchema);
+const Message = mongoose.model("message", messageSchema);
 
 export default Message;

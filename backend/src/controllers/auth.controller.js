@@ -131,6 +131,7 @@ export const signOut = async (req, res) => {
 };
 
 // tạo access token mới từ refresh token
+// [POST] /auth/refresh
 export const refreshToken = async (req, res) => {
   try {
     // lấy refresh token từ cookie

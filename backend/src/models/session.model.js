@@ -25,6 +25,6 @@ const sessionSchema = new mongoose.Schema({
 // tự động xóa khi hết hạn
 sessionSchema.index({expiresAt: 1}, {expireAfterSeconds: 0});
 
-const Session = mongoose.model("Session", sessionSchema); 
+const Session = mongoose.model("session", sessionSchema); 
 
 export default Session;
