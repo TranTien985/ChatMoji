@@ -4,6 +4,7 @@ import { connectDB } from "./libs/db.js";
 import authRoute from "./routes/auth.route.js";
 import userRoute from "./routes/user.route.js";
 import friendRoute from "./routes/friend.route.js"
+import messageRoute from "./routes/message.route.js"
 import cookieParser from "cookie-parser";
 import { protectedRoute } from "./middlewares/auth.middlewares.js";
 import cors from "cors";
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoute);
 app.use(protectedRoute); // sử dụng middlewares để private thông tin
 app.use("/api/users", userRoute);
 app.use("/api/friends", friendRoute);
+app.use("/api/messages", messageRoute)
 
 connectDB().then(() => {
   app.listen(PORT, () => {

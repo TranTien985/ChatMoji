@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const messageSchema = new mongoose.Schema(
   {
     // lưu id cuộc trò chuyện
-    converstationId: {
+    conversationId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "converstation",
+      ref: "conversation",
       required: true,
       index: true,
     },
@@ -27,7 +27,7 @@ const messageSchema = new mongoose.Schema(
   },
 );
 
-messageSchema.index({ converstationId: 1, createdAt: -1 }); // sắp xếp theo conver thứ tự tăng dần còn createdAt theo thứ tự giảm dần
+messageSchema.index({ conversationId: 1, createdAt: -1 }); // sắp xếp theo conver thứ tự tăng dần còn createdAt theo thứ tự giảm dần
 
 const Message = mongoose.model("message", messageSchema);
 

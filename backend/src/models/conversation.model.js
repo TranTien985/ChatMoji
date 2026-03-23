@@ -55,7 +55,7 @@ const converstationSchema = new mongoose.Schema(
       enum: ["direct", "group"], // đoạn chat chỉ có thể chat 2 người hoặc 1 nhóm
       required: true,
     },
-    participant: {
+    participants: {
       type: [participantSchema],
       required: true,
     },
@@ -90,10 +90,10 @@ const converstationSchema = new mongoose.Schema(
 
 // giúp tăng tốc độ truy vấn
 converstationSchema.index({
-  "participant.userId": 1,
+  "participants.userId": 1,
   lastMessageAt: -1,
 });
 
-const Converstation = mongoose.model("converstation", converstationSchema);
+const Converstation = mongoose.model("conversation", converstationSchema);
 
 export default Converstation
