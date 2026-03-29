@@ -48,7 +48,7 @@ const lastMessageSchema = new mongoose.Schema(
   { _id: false },
 );
 
-const converstationSchema = new mongoose.Schema(
+const conversationSchema = new mongoose.Schema(
   {
     type: {
       type: String,
@@ -89,11 +89,11 @@ const converstationSchema = new mongoose.Schema(
 );
 
 // giúp tăng tốc độ truy vấn
-converstationSchema.index({
+conversationSchema.index({
   "participants.userId": 1,
   lastMessageAt: -1,
 });
 
-const Converstation = mongoose.model("conversation", converstationSchema);
+const Conversation = mongoose.model("conversation", conversationSchema);
 
-export default Converstation
+export default Conversation;
