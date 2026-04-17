@@ -49,12 +49,12 @@ export function SigninForm({
               {/* header-logo */}
               <div className="flex flex-col items-center text-center gap-2">
                 <a href="/" className="mx-auto block w-fit text-center">
-                  <img src="/logo.svg" alt="logo" />
+                  <img src="/logo.PNG" alt="logo" className="h-12"/>
                 </a>
 
                 <h1 className="text-2xl font-bold">Chào mừng quay lại</h1>
                 <p className="text-muted-foreground text-balance">
-                  Đăng nhập vào tài khoản Moji của bạn 
+                  Đăng nhập vào tài khoản Meizo của bạn 
                 </p>
               </div>
 
@@ -69,7 +69,7 @@ export function SigninForm({
                 <Input
                   type="text" 
                   id="username"
-                  placeholder="Moji"
+                  placeholder="Meizo"
                   {...register("username")}
                 >
                 </Input>

@@ -54,10 +54,10 @@ export function SignupForm({
               {/* header-logo */}
               <div className="flex flex-col items-center text-center gap-2">
                 <a href="/" className="mx-auto block w-fit text-center">
-                  <img src="/logo.svg" alt="logo" />
+                  <img src="/logo.PNG" alt="logo" className="h-12"/>
                 </a>
 
-                <h1 className="text-2xl font-bold">Tạo tài khoản Moji</h1>
+                <h1 className="text-2xl font-bold">Tạo tài khoản Meizo</h1>
                 <p className="text-muted-foreground text-balance">
                   Chào mừng bạn hãy đăng kí để bắt đầu
                 </p>
@@ -194,7 +194,7 @@ export function SignupForm({
           </form>
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/placeholderSignUp.png"
+              src="/placeholderSignUp.PNG"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
